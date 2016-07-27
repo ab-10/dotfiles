@@ -9,7 +9,7 @@ git clone https://github.com/ab-10/dotfiles.git
 ### VIM
 Place `.vimrc` to your home folder
 ```
-cp ~/dotfiles ~
+cp ~/dotfiles/vim/.vimrc ~
 ```
 Clone packages to `.vim/bundle`
 ```
