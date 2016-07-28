@@ -8,6 +8,7 @@ git clone https://github.com/ab-10/dotfiles.git
 
 ### ZSH
 Install ZSH through your packet manager
+
 **For Fedora**
 ```
 sudo dnf install
