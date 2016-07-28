@@ -35,9 +35,19 @@ Place `.vimrc` in your home folder
 ```
 cp ~/dotfiles/vim/.vimrc ~
 ```
-Clone packages to `.vim/bundle`
+Install Solarized color scheme
 ```
 cd ~/.vim/bundle && \
-git clone https://github.com/altercation/vim-colors-solarized.git && \
-git clone https://github.com/SirVer/ultisnips.git
-``` 
+git clone https://github.com/altercation/vim-colors-solarized.git
+```
+Install SnipMate
+```
+cd ~/.vim/bundle &&\
+git clone https://github.com/tomtom/tlib_vim.git &&\
+git clone https://github.com/MarcWeber/vim-addon-mw-utils.git &&\
+git clone https://github.com/garbas/vim-snipmate.git
+```
+Copy snippets
+```
+cp ~/dotfiles/vim/snippets/java.snippets ~/.vim/snippets
+```
