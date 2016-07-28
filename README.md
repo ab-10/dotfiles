@@ -6,6 +6,24 @@ cd ~
 git clone https://github.com/ab-10/dotfiles.git
 ```
 
+### ZSH
+Install ZSH through your packet manager
+**For Fedora**
+'''
+sudo dnf install
+'''
+Set ZSH as default shell
+'''
+chsh -s $(which zsh)
+'''
+Install Oh My ZSH
+'''
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+'''
+Copy `.zshrc` to home dir
+```
+cp ~/dotfiles/ZSH/.zshrc ~
+``` 
 ### VIM
 Place `.vimrc` to your home folder
 ```
