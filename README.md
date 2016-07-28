@@ -26,7 +26,12 @@ Copy `.zshrc` to home dir
 cp ~/dotfiles/ZSH/.zshrc ~
 ``` 
 ### VIM
-Place `.vimrc` to your home folder
+Install Pathogen
+```
+mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+```
+Place `.vimrc` in your home folder
 ```
 cp ~/dotfiles/vim/.vimrc ~
 ```
