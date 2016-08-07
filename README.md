@@ -11,7 +11,7 @@ Install ZSH through your packet manager
 
 **For Fedora**
 ```
-sudo dnf install
+sudo dnf install zsh
 ```
 Set ZSH as default shell
 ```
@@ -50,4 +50,14 @@ git clone https://github.com/garbas/vim-snipmate.git
 Copy snippets
 ```
 cp ~/dotfiles/vim/snippets/java.snippets ~/.vim/snippets
+```
+Install vim pencil
+```
+cd ~/.vim/bundle && \
+git clone https://github.com/reedes/vim-pencil.git
+```
+Install Goyo
+```
+cd ~/.vim/bundle && \
+git clone https://github.com/junegunn/goyo.vim.git
 ```
