@@ -61,3 +61,8 @@ Install Goyo
 cd ~/.vim/bundle && \
 git clone https://github.com/junegunn/goyo.vim.git
 ```
+Install Python Mode
+```
+cd ~/.vim/bundle && \
+git clone https://github.com/klen/python-mode.git
+```
