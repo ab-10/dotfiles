@@ -15,6 +15,9 @@ map <F3> :NERDTree<CR>
 
 let g:pymode_folding=0
 
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
 " easier movement between splits
 map <S-j> <esc>:wincmd j<CR>
 map <S-k> <esc>:wincmd k<CR>
@@ -35,20 +38,27 @@ map <C-e> <esc>:q!<CR>
 " sort selected lines
 vnoremap <leader>s :sort<CR>
 
-" easier intendation
-vnoremap < <gv
-vnoremap > >gv
+" highlight current line
+set cursorline
 
 " show line to avoid lines too long
 set colorcolumn=80
 highlight ColorColumn guibg=LightSeaGreen
 
 " tab length configuration
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set tabstop=4 shiftwidth=4 expandtab
+:set autoindent
 filetype indent plugin on
+
+" easier intendation
+vnoremap < <gv
+vnoremap > >gv
 
 " settings for writing prose
 map <f12> :Goyo x80<bar> :TogglePencil <CR>
 map <f5>  :setlocal spell! spelllang=en_us <CR>
 
 let g:pencil#wrapModeDefault = 'soft'
+
+" redraw only when necessary
+set lazyredraw
