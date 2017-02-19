@@ -13,6 +13,12 @@ git clone https://github.com/altercation/vim-colors-solarized.git # install Sola
 git clone https://github.com/reedes/vim-pencil.git # install vim pencil
 git clone https://github.com/junegunn/goyo.vim.git # install Goyo
 
+# install YouCompleteMe
+sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel -y
+git clone https://github.com/Valloric/YouCompleteMe
+git submodule update --init --recursive
+./install.py --all
+
 # configure terminal
 sudo dnf install zsh -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
