@@ -13,6 +13,10 @@ git clone https://github.com/altercation/vim-colors-solarized.git # install Sola
 git clone https://github.com/reedes/vim-pencil.git # install vim pencil
 git clone https://github.com/junegunn/goyo.vim.git # install Goyo
 
+# tools for note taking using LaTex
+sudo dnf install pandoc -y
+sudo dnf install texlive -y
+
 # install YouCompleteMe
 sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel -y
 git clone https://github.com/Valloric/YouCompleteMe
