@@ -13,6 +13,11 @@ git clone https://github.com/altercation/vim-colors-solarized.git # install Sola
 git clone https://github.com/reedes/vim-pencil.git # install vim pencil
 git clone https://github.com/junegunn/goyo.vim.git # install Goyo
 
+# install SnipMate and dependencies
+git clone https://github.com/tomtom/tlib_vim.git
+git clone https://github.com/MarcWeber/vim-addon-mw-utils.git
+git clone https://github.com/garbas/vim-snipmate.git
+
 # tools for note taking using LaTex
 sudo dnf install pandoc -y
 sudo dnf install texlive -y

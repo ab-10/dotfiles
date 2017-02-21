@@ -62,3 +62,6 @@ let g:pencil#wrapModeDefault = 'soft'
 
 " redraw only when necessary
 set lazyredraw
+
+" settings for ycm
+let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
