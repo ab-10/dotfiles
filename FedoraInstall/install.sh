@@ -38,3 +38,4 @@ cd gnome-terminal-colors-solarized
 ./install.sh -s dark
 cd ..
 sudo rm -rf gnome-terminal-colors-solarzed
+sudo dnf install pwgen
