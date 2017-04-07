@@ -1,8 +1,8 @@
-export ZSH=/home/arminbagrat/.oh-my-zsh
+export ZSH=/home/sartre/.oh-my-zsh
 
 ZSH_THEME="agnoster"
 
-DEFAULT_USER="arminbagrat"
+DEFAULT_USER="sartre"
 
 COMPLETION_WAITING_DOTS="false"
 
@@ -12,4 +12,4 @@ source $ZSH/oh-my-zsh.sh
 
 alias mkpass="pwgen -c -n -y"
 
-. /home/arminbagrat/torch/install/bin/torch-activate
+. /home/sartre/torch/install/bin/torch-activate
