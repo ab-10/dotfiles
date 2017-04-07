@@ -22,12 +22,6 @@ git clone https://github.com/garbas/vim-snipmate.git
 sudo dnf install pandoc -y
 sudo dnf install texlive -y
 
-# install YouCompleteMe
-sudo dnf install automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel -y
-git clone https://github.com/Valloric/YouCompleteMe
-git submodule update --init --recursive
-./install.py --all
-
 # configure terminal
 sudo dnf install zsh -y
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

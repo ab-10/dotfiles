@@ -4,12 +4,12 @@ filetype plugin indent on
 
 let g:pymode_rope = 0
 
-set background=dark
-colorscheme solarized
+
+colorscheme monokai
 
 set relativenumber
 
-map <F3> :NERDTree<CR>
+map <F3> :NERDTreeToggle<CR>
 
 :let mapleader=","
 
@@ -62,6 +62,3 @@ let g:pencil#wrapModeDefault = 'soft'
 
 " redraw only when necessary
 set lazyredraw
-
-" settings for ycm
-let g:ycm_key_list_select_completion = ['<Enter>', '<Down>']
