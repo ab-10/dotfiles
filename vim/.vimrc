@@ -1,6 +1,7 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
+filetype plugin on
 
 let g:pymode_rope = 0
 
