@@ -38,7 +38,6 @@ set cursorline
 
 " show line to avoid lines too long
 set colorcolumn=80
-highlight ColorColumn guibg=LightSeaGreen
 
 " tab length configuration
 set tabstop=4 shiftwidth=4 expandtab
