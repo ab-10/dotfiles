@@ -25,12 +25,6 @@ map <S-k> <esc>:wincmd k<CR>
 map <S-h> <esc>:wincmd h<CR>
 map <S-l> <esc>:wincmd l<CR>
 
-" easier movement between tabs
-map <C-h> <esc>:tabprevious<CR>
-map <C-l> <esc>:tabnext<CR>
-map <C-j> <esc>:tabclose<CR>
-map <C-k> <esc>:tabnew<CR>
-
 " easier saving
 map <C-c> <esc>:w<CR>
 map <C-x> <esc>:x<CR>
@@ -56,9 +50,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " settings for writing prose
-map <f12> :Goyo x80<bar> :TogglePencil <CR>
-map <f5>  :setlocal spell! spelllang=en_us <CR>
-
+map <F2> :Goyo x180 <bar> :setlocal spell! spelllang=en_uk <bar> :SoftPencil<CR>
 let g:pencil#wrapModeDefault = 'soft'
 
 " redraw only when necessary
