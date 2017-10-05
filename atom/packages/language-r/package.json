@@ -1,0 +1,67 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-117530-23907-1rn087g/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-117530-23907-1rn087g/package.tgz",
+        "spec": "/tmp/d-117530-23907-1rn087g/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-117530-23907-zcbmhh"
+    ]
+  ],
+  "_from": "../d-117530-23907-1rn087g/package.tgz",
+  "_id": "language-r@0.4.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/language-r",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-117530-23907-1rn087g/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-117530-23907-1rn087g/package.tgz",
+    "spec": "/tmp/d-117530-23907-1rn087g/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117530-23907-1rn087g/package.tgz",
+  "_shasum": "77e9e283bd817c74ff5099c12f821544cd5671a3",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-117530-23907-1rn087g/package.tgz",
+  "_where": "/tmp/apm-install-dir-117530-23907-zcbmhh",
+  "author": {
+    "name": "Lee Dohm",
+    "email": "lee@lee-dohm.com"
+  },
+  "bugs": {
+    "url": "https://github.com/lee-dohm/language-r/issues"
+  },
+  "dependencies": {},
+  "description": "A language description and snippets for R",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "homepage": "https://github.com/lee-dohm/language-r#readme",
+  "keywords": [
+    "grammar",
+    "r"
+  ],
+  "license": "MIT",
+  "name": "language-r",
+  "optionalDependencies": {},
+  "readme": "# R Language - Unmaintained\n\n:rotating_light: This package is no longer maintained. See the [Updates section](#updates) for details. :rotating_light:\n\nA language package for [R](http://www.r-project.org).\n\nOriginally imported from [r.tmbundle](https://github.com/textmate/r.tmbundle).\n\n## Updates\n\nI no longer use R in my daily work and haven't for a couple years. I also no longer have the time to maintain this package properly. If anyone is interested in taking over the maintenance of this package and eventually the repository, please post an [Issue](https://github.com/lee-dohm/language-r/issues/new) with the subject of \"Volunteer Maintainer\". Other Issues and PRs will be closed.\n\n## Copyright\n\nCopyright &copy; 2014-2015 by [Lee Dohm](https://www.lee-dohm.com). See [LICENSE](https://github.com/lee-dohm/language-r/blob/master/LICENSE.md) for details.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lee-dohm/language-r.git"
+  },
+  "version": "0.4.1"
+}

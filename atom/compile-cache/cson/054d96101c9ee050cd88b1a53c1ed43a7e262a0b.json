@@ -1,0 +1,1 @@
+{"context-menu":{"atom-text-editor":[{"label":"Toggle atom-todoist","command":"main:toggle"}]},"menu":[{"label":"Packages","submenu":[{"label":"atom-todoist","submenu":[{"label":"Toggle","command":"main:toggle"}]}]}]}
