@@ -1,1 +1,0 @@
-{"source":".tab-control-status {\n  color: #a8a8a8;\n}\n.tab-control-status:hover {\n  cursor: pointer;\n  text-decoration: underline;\n}\n.tab-control .list-group li {\n  border: 1px solid transparent !important;\n}\n.tab-control .list-group .seperator + li {\n  border-top: 1px solid #181818 !important;\n}\n.tab-control .list-group .seperator {\n  display: none;\n}\n"}
