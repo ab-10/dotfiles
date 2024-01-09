@@ -3,14 +3,10 @@ syntax enable
 filetype plugin indent on
 filetype plugin on
 
-"enable solarized
-set background=light
-colorscheme solarized
-
 set backspace=indent,eol,start  " when this is removed some vim versions won't allow backspacing past the three options here
 
 set spell spelllang=en_gb
-hi SpellBad guibg=#ff2929 ctermbg=224
+" hi SpellBad guibg=#ff2929 ctermbg=224
 
 let g:pymode_doc_bind = 'H'
 
