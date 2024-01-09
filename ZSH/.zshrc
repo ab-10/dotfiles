@@ -4,23 +4,6 @@ export PATH=/usr/local/opt/grep/libexec/gnubin:$PATH
 export PATH=/usr/local/opt/ccache/libexec:$PATH
 export PATH=/usr/local/sbin:$PATH
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
-# cpp library fix
-export PATH="/usr/local/opt/icu4c/bin:$PATH"
-export PATH="/usr/local/opt/icu4c/sbin:$PATH"
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-
-export LDFLAGS="-L/usr/local/opt/icu4c/lib -L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/icu4c/include -I/usr/local/opt/llvm/include"
-export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
-
-
-export MESASDK_ROOT=/Applications/mesasdk
-source $MESASDK_ROOT/bin/mesasdk_init.sh
-
-
 # Make sure rbenv ruby updates
 # export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 # Lead rbenv env
@@ -48,7 +31,6 @@ padd() {
 }
 
 # tmux plugin config
-
 export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOQUIT=false
 
@@ -66,11 +48,9 @@ ZSH_THEME="agnoster"
 #     tmux attach -t default || tmux new -s default
 # fi
 
-DEFAULT_USER="Lucius Annaeus Seneca"
+DEFAULT_USER="seneca"
 
 COMPLETION_WAITING_DOTS="false"
-
-plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
