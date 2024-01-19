@@ -26,6 +26,7 @@ require("lazy").setup({
 
     -- plugins_str
     'tpope/vim-sleuth',
+    'tpope/vim-markdown',
     'Vimjas/vim-python-pep8-indent',
     'mfussenegger/nvim-jdtls',
     'folke/which-key.nvim',
@@ -159,10 +160,9 @@ require('which-key').register({
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'python', -- mandatory
-                        'markdown', 'markdown_inline', 'html', 'scss'},
+                        'html', 'scss'},
     modules = {},
     highlight = { enable = true },
-    indent = { enable = true },
     auto_install = true,
     sync_install = false,
     ignore_install = {},
@@ -287,7 +287,8 @@ cmp.setup {
     local ftype = vim.api.nvim_buf_get_option(0, 'filetype')
 
     local disabled_langs = {markdown = true,
-                            help = true
+                            help = true,
+                            gitcommit = true,
                             }
 
     if disabled_langs[ftype] then
