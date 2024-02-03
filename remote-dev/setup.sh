@@ -20,4 +20,11 @@ cp $script_parent_dir/.vimrc ~/
 # tmux
 cp $script_parent_dir/.tmux.conf ~/
 
+# nvim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+sudo cp nvim.appimage /usr/bin/nvim
+
+sudo apt install ripgrep -y
+
 exit 0
