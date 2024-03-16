@@ -15,6 +15,7 @@ export ZSH="$HOME/.oh-my-zsh"
 export DISPLAY=":1"
 
 alias vim='/usr/local/bin/nvim'
+alias cerebral='/Users/seneca/Library/Caches/pypoetry/virtualenvs/raide-N7v-I04B-py3.10/bin/python ~/Coding/raide/ui/async_demo.py'
 
 
 export PATH="/Users/seneca/.poetry/bin:$PATH"
@@ -44,9 +45,13 @@ export EDITOR='nvim'
 
 ZSH_THEME="agnoster"
 
-# if [[ $IDE -eq 0 ]] && command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#     tmux attach -t default || tmux new -s default
-# fi
+
+function logged_mvn_test() {
+    . jset 11
+    now=$(date +"%Y-%m-%d-%H-%M")
+    git diff --color > "mvn-clean-test-$now.log" 
+    script -q /dev/null mvn clean test | tee -a "mvn-clean-test-$now.log" 
+}
 
 DEFAULT_USER="seneca"
 
@@ -66,6 +71,10 @@ if [ -f '/Users/seneca/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/User
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/seneca/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/seneca/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# VM aliases
+alias vroom-vroom-100='gcloud compute ssh seneca@vroom-vroom-100 --zone us-central1-c -- -L 8889:localhost:8889'
+alias vroom-vroom-101='gcloud compute ssh seneca@vroom-vroom-101 --zone us-central1-a -- -L 8889:localhost:8889'
 
 eval "$(direnv hook zsh)"
 PATH='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/':$PATH
