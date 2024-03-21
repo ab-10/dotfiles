@@ -3,6 +3,7 @@ vim.o.packpath = vim.o.runtimepath
 
 vim.cmd('source ~/.vimrc')
 
+vim.g.cmpenabled = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -81,15 +82,6 @@ require("lazy").setup({
       },
     },
 
-    {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
-
 })
 
 vim.cmd("colorscheme tokyonight")
@@ -137,6 +129,8 @@ local on_lsp_attach = function (_, bufnr)
   end
 
   lsp_map('<leader>ld', require('telescope.builtin').lsp_definitions, '[L]SP goto [D]efinition')
+  lsp_map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
+  lsp_map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction')
 end
 
 
@@ -156,50 +150,14 @@ require('which-key').register({
 
 })
 
--- [[ treesitter config ]]
-vim.defer_fn(function()
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'python', -- mandatory
-                        'html', 'scss'},
-    modules = {},
-    highlight = { enable = true },
-    auto_install = true,
-    sync_install = false,
-    ignore_install = {},
-  }
-end, 0)
-
 -- [[ LSP config ]]
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
   html = {},
-  jedi_language_server = {},
-
-  --[[
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      -- diagnostics = { disable = { 'missing-fields' } },
-    },
-  },
-  ]]--
+  pyright = {},
+  jdtls = {}, -- Java language server
 }
 
 -- Setup neovim lua configuration
@@ -283,6 +241,10 @@ cmp.setup {
 
   enabled = function ()
     -- disable completion in comments
+    if vim.g.cmpenabled == 0 then
+      return false
+    end
+
     local context = require 'cmp.config.context'
     local ftype = vim.api.nvim_buf_get_option(0, 'filetype')
 
@@ -301,3 +263,5 @@ cmp.setup {
     end
   end
 }
+
+
