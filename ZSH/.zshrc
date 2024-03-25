@@ -69,7 +69,6 @@ if [ -f '/Users/seneca/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . 
 alias vroom-vroom-100='gcloud compute ssh seneca@vroom-vroom-100 --zone us-central1-c -- -L 8889:localhost:8889'
 alias vroom-vroom-101='gcloud compute ssh seneca@vroom-vroom-101 --zone us-central1-a -- -L 8889:localhost:8889'
 
-eval "$(direnv hook zsh)"
 PATH='/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/':$PATH
 export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 
