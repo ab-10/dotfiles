@@ -24,7 +24,17 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- colorscheme
     "folke/tokyonight.nvim",
+    --[[
+    {
+      'maxmx03/solarized.nvim',
+      lazy = false,
+      priority = 1000,
+      config = function()
+        vim.o.background = 'light'
 
+        vim.cmd.colorscheme 'solarized'
+      end,
+    }, --]]
     -- plugins_str
     'tpope/vim-sleuth',
     'tpope/vim-markdown',
@@ -33,6 +43,7 @@ require("lazy").setup({
     'folke/which-key.nvim',
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
+    'vlime/vlime',
     {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
@@ -75,10 +86,7 @@ require("lazy").setup({
 
         -- Adds LSP completion capabilities
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-path',
 
-        -- Adds a number of user-friendly snippets
-        'rafamadriz/friendly-snippets',
       },
     },
 
@@ -156,9 +164,21 @@ require('mason-lspconfig').setup()
 
 local servers = {
   html = {},
-  pyright = {},
+  pylsp = {
+    pylsp = {
+        plugins = {
+          pycodestyle = {
+            ignore = {'W391', 'E'},
+            maxLineLength = 100
+          }
+        }
+    }
+  },
   jdtls = {}, -- Java language server
 }
+
+-- Only show errors in the editor
+require('filter-diagnostics').set_level(vim.diagnostic.severity.ERROR)
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -235,8 +255,6 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
   },
 
   enabled = function ()
