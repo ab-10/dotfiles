@@ -22,28 +22,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- colorscheme
-    "folke/tokyonight.nvim",
-    --[[
-    {
-      'maxmx03/solarized.nvim',
-      lazy = false,
-      priority = 1000,
-      config = function()
-        vim.o.background = 'light'
-
-        vim.cmd.colorscheme 'solarized'
-      end,
-    }, --]]
-    -- plugins_str
+    "folke/tokyonight.nvim", -- colorscheme
     'tpope/vim-sleuth',
     'tpope/vim-markdown',
     'Vimjas/vim-python-pep8-indent',
     'mfussenegger/nvim-jdtls',
+    'bullets-vim/bullets.vim',
     'folke/which-key.nvim',
-    'nvim-tree/nvim-tree.lua',
-    'nvim-tree/nvim-web-devicons',
     'vlime/vlime',
+    'zbirenbaum/copilot.lua',
     {
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
@@ -56,6 +43,26 @@ require("lazy").setup({
               return vim.fn.executable 'make' == 1
             end,
           },
+        },
+    },
+    {
+        "robitx/gp.nvim",
+        config = {
+            openai_api_key = { "cat", "/Users/seneca/.openai_key" },
+            agents = {
+                {
+                    name = "ChatGPT3-5",
+                    disable = true,
+                },
+                {
+                    name = "GPT-4",
+                    provider = "openai",
+                    chat = true,
+                    command = true,
+                    model = { model = "gpt-4" },
+                    system_prompt = "You are an intelligent and helpful assistant.",
+                },
+            },
         },
     },
 
@@ -75,7 +82,23 @@ require("lazy").setup({
         'folke/neodev.nvim',
       },
     },
-
+    { -- Highlight, edit, and navigate code
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        opts = {
+            ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+            -- Autoinstall languages that are not installed
+            auto_install = true,
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = { 'python' },
+            },
+            indent = { enable = true, disable = { 'python' } },
+        },
+        config = function (_, opts)
+            require('nvim-treesitter.configs').setup(opts)
+        end,
+    },
     {
       -- Autocompletion
       'hrsh7th/nvim-cmp',
@@ -137,17 +160,11 @@ local on_lsp_attach = function (_, bufnr)
   end
 
   lsp_map('<leader>ld', require('telescope.builtin').lsp_definitions, '[L]SP goto [D]efinition')
+  lsp_map('<leader>lu', require('telescope.builtin').lsp_references, '[L]SP goto [U]sages')
   lsp_map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
   lsp_map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction')
 end
 
-
--- [[ nvim-tree keybindings ]]
-local find_current = function ()
-  require('nvim-tree.api').tree.toggle({find_file=true})
-end
-
-vim.keymap.set('n', '<leader>t', find_current, { desc = 'nvim-[T]ree [F]iles' })
 
 require('which-key').register({
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
@@ -183,9 +200,6 @@ require('filter-diagnostics').set_level(vim.diagnostic.severity.ERROR)
 -- Setup neovim lua configuration
 require('neodev').setup()
 
--- [[ nvim-tree ]]
-require('nvim-tree').setup()
-
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -214,6 +228,28 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
+
+require("copilot").setup({
+    suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        hide_during_completion = true,
+        debounce = 75,
+        keymap = {
+            accept_line = "<c-l>",
+            accept = false,
+            accept_word = false,
+            next = "<c-j>",
+            prev = "<c-k>",
+            toggle = false,
+            chat = false,
+            command = false,
+        },
+    },
+    filetypes = {
+        python = true,
+    },
+})
 
 cmp.setup {
   snippet = {
