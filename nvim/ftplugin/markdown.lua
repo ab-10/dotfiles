@@ -1,9 +1,3 @@
 local vim = vim
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-
-vim.cmd("set nofoldenable")
-
--- local cmp = require('cmp')
--- cmp.setup.buffer({ enabled = false })
+vim.keymap.set('n', '<leader>mf', '<cmd>RenumberList<cr>', { desc = '[M]arkdown [F]ix list' })
