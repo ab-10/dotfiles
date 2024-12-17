@@ -7,6 +7,15 @@ vim.g.cmpenabled = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.shiftround = true
+vim.opt.shiftwidth = 0
+
+vim.filetype.add({
+    extension = {mdx = 'markdown'},
+})
+
 -- Set up lazyvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -49,6 +58,7 @@ require("lazy").setup({
         "robitx/gp.nvim",
         config = {
             openai_api_key = { "cat", "/Users/seneca/.openai_key" },
+            default_chat_agent = "Claude",
             agents = {
                 {
                     name = "ChatGPT3-5",
@@ -62,7 +72,22 @@ require("lazy").setup({
                     model = { model = "gpt-4" },
                     system_prompt = "You are an intelligent and helpful assistant.",
                 },
+                {
+                    name = "Claude",
+                    provider = "anthropic",
+                    model = { model = "claude-3-5-sonnet-20241022" },
+                    -- secret = { "cat", "/Users/seneca/.anthropic_key" },
+                    system_prompt = "You are an intelligent and helpful assistant.",
+                    chat = true,
+                    command = true,
+                },
             },
+            providers = {
+                anthropic = {
+                    endpoint = "https://api.anthropic.com/v1/messages",
+                    secret = { "cat", "/Users/seneca/.anthropic_key" },
+                },
+            }
         },
     },
 
@@ -86,14 +111,14 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         opts = {
-            ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python' },
+            ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'python', 'yaml'},
             -- Autoinstall languages that are not installed
             auto_install = true,
             highlight = {
                 enable = true,
                 additional_vim_regex_highlighting = { 'python' },
             },
-            indent = { enable = true, disable = { 'python' } },
+            indent = { enable = false, disable = { 'python' } },
         },
         config = function (_, opts)
             require('nvim-treesitter.configs').setup(opts)
@@ -127,7 +152,8 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-
+-- Remove default gc binding
+vim.keymap.del('n', 'gc')
 
 -- [[ vanila keybindings ]]
 vim.keymap.set('n', '<leader>fw', '<cmd>write<cr>', { desc = '[F]ile [W]rite to current file' })
@@ -141,6 +167,9 @@ vim.keymap.set('n', '<leader>b[', '<cmd>bprevious<cr>', { desc = '[B]uffer [P]re
 vim.keymap.set('n', '<leader>b]', '<cmd>bnext<cr>', { desc = '[B]uffer [N]ext' })
 
 vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })
+
+
+vim.keymap.set('n', '<leader>gn', '<cmd>GpChatNew<cr>', { desc = '[G]P Chat [N]ew' })
 
 -- [[ telescope config ]]
 vim.keymap.set('n', '<leader>s/', require('telescope.builtin').live_grep, { desc = '[S]earch [/] in Open Files' })
@@ -166,13 +195,12 @@ local on_lsp_attach = function (_, bufnr)
 end
 
 
-require('which-key').register({
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>f'] = { name = '[F]ile', _ = 'which_key_ignore' },
-  ['<leader>t'] = { name = 'nvim-[t]ree', _ = 'which_key_ignore' },
-  ['<leader>l'] = { name = '[l]sp', _ = 'which_key_ignore' },
-  ['<leader>b'] = { name = '[b]uffer', _ = 'which_key_ignore' },
-
+require('which-key').add({
+    { "<leader>b", group = "[b]uffer" },
+    { "<leader>f", group = "[F]ile" },
+    { "<leader>l", group = "[l]sp" },
+    { "<leader>s", group = "[S]earch" },
+    { "<leader>t", group = "nvim-[t]ree" },
 })
 
 -- [[ LSP config ]]
@@ -248,6 +276,7 @@ require("copilot").setup({
     },
     filetypes = {
         python = true,
+        yaml = true,
     },
 })
 
