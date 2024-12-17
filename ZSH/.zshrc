@@ -29,7 +29,7 @@ export ZSH_TMUX_AUTOQUIT=false
 
 # Tmux aliases 
 alias tsync='tmux set synchronize-panes'
-alias tsplit='tmux split-window -h && tmux split-window -v'
+alias tsplit='tmux split-window -h -c "#{pane_current_path}" && tmux split-window -v -c "#{pane_current_path}"'
 
 # Git aliases
 alias grp='git grep'
