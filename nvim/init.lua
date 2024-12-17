@@ -152,9 +152,6 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Remove default gc binding
-vim.keymap.del('n', 'gc')
-
 -- [[ vanila keybindings ]]
 vim.keymap.set('n', '<leader>fw', '<cmd>write<cr>', { desc = '[F]ile [W]rite to current file' })
 vim.keymap.set('n', '<leader>fx', '<cmd>write<cr><cmd>quit<cr>', { desc = '[F]ile [x] Write and quit' })
