@@ -8,14 +8,17 @@ export ZSH="$HOME/.oh-my-zsh"
 export DISPLAY=":1"
 
 alias vim=`which nvim`
-alias vi="vim"
+alias vi=`which nvim`
 
 
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/.docker/cli-plugins/:$PATH"
 
 
-source <(fzf --zsh)
+if command -v fzf >/dev/null 2>&1; then
+    source <(fzf --zsh)
+fi
+
 
 plugins=(
   git
@@ -37,11 +40,15 @@ alias grp='git grep'
 
 export EDITOR='nvim'
 
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
+
 DEFAULT_USER="seneca"
 
 
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [[ -v ZSH_AUTOSUGGEST_STRATEGY ]]; then
+  source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 COMPLETION_WAITING_DOTS="false"
 
 source $ZSH/oh-my-zsh.sh
@@ -62,8 +69,11 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export PATH=$HOME/.pyenv/shims/:$PATH
 export PATH=$HOME/.pyenv/versions/3.10.4/bin/:$PATH
 
-
 if command -v rbenv >/dev/null; then
   # make sure to use rbenv's ruby and gem
   export PATH=$(dirname $(rbenv which gem)):$PATH
 fi
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

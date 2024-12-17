@@ -1,4 +1,4 @@
-execute pathogen#infect()
+" execute pathogen#infect()
 syntax enable
 filetype plugin indent on
 filetype plugin on
@@ -53,7 +53,7 @@ set cursorline
 set tabstop=4 shiftwidth=4 expandtab
 :set autoindent
 filetype indent plugin on
-set clipboard=unnamedplus,unnamed
+"set clipboard=unnamedplus,unnamed
 
 " easier indentation
 vnoremap < <gv
