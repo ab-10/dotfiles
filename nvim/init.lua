@@ -2,6 +2,7 @@ vim.o.runtimepath = vim.o.runtimepath .. ',~/.vim' ..  ',~/.vim/after'
 vim.o.packpath = vim.o.runtimepath
 
 vim.cmd('source ~/.vimrc')
+vim.opt.clipboard:append('unnamedplus')
 
 vim.g.cmpenabled = 1
 vim.g.mapleader = ' '
