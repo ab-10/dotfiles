@@ -31,6 +31,24 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- [ lsp powered bindings ]]
+local on_lsp_attach = function (_, bufnr)
+  local lsp_map = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
+
+  lsp_map('<leader>ld', require('telescope.builtin').lsp_definitions, '[L]SP goto [D]efinition')
+  lsp_map('<leader>lu', require('telescope.builtin').lsp_references, '[L]SP goto [U]sages')
+  lsp_map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
+  lsp_map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction')
+end
+
+
+
 require("lazy").setup({
     "folke/tokyonight.nvim", -- colorscheme
     'tpope/vim-sleuth',
@@ -91,22 +109,68 @@ require("lazy").setup({
             }
         },
     },
-
-    -- Install LSP and friends
     {
-      'neovim/nvim-lspconfig',
-      dependencies = {
-        -- Automatically install LSPs to stdpath for neovim
-        { 'williamboman/mason.nvim', config = true },
-        'williamboman/mason-lspconfig.nvim',
+    -- Install LSP and friends
+    'neovim/nvim-lspconfig',
+    dependencies = {
+        { 'williamboman/mason.nvim', priority = 100 },
+        { 'williamboman/mason-lspconfig.nvim', priority = 90 },
+    },
+    lazy=false,
+    config = function()
+        local servers = {
+        html = {},
+        pylsp = {
+            pylsp = {
+                plugins = {
+                pycodestyle = {
+                    ignore = {'W391', 'E'},
+                    maxLineLength = 100
+                }
+                }
+            }
+        },
+        jdtls = {}, -- Java language server
+        }
 
-        -- Useful status updates for LSP
-        -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+        require('mason').setup()
+        require('mason-lspconfig').setup({
+            ensure_installed = vim.tbl_keys(servers),
+            automatic_installation = true,
+        })
+
+
+        -- Only show errors in the editor
+        -- require('filter-diagnostics').set_level(vim.diagnostic.severity.ERROR)
+
+        -- Setup neovim lua configuration
+        require('neodev').setup()
+
+        -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+        -- Ensure the servers above are installed
+        local mason_lspconfig = require 'mason-lspconfig'
+
+        mason_lspconfig.setup({
+            handlers={
+                function(server_name)
+                    require('lspconfig')[server_name].setup({
+                    capabilities = capabilities,
+                    on_attach = on_lsp_attach,
+                    settings = servers[server_name],
+                    filetypes = (servers[server_name] or {}).filetypes,
+                    autostart=true,
+                    })
+                end
+            }
+        })
+    end
+    },
+    {
         { 'j-hui/fidget.nvim', opts = {} },
-
-        -- Additional lua configuration, makes nvim stuff amazing!
         'folke/neodev.nvim',
-      },
     },
     { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
@@ -175,23 +239,6 @@ vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc =
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc = '[S]earch [G]it Files' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 
--- [ lsp powered bindings ]]
-local on_lsp_attach = function (_, bufnr)
-
-  local lsp_map = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
-
-  lsp_map('<leader>ld', require('telescope.builtin').lsp_definitions, '[L]SP goto [D]efinition')
-  lsp_map('<leader>lu', require('telescope.builtin').lsp_references, '[L]SP goto [U]sages')
-  lsp_map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
-  lsp_map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction')
-end
-
 
 require('which-key').add({
     { "<leader>b", group = "[b]uffer" },
@@ -199,54 +246,8 @@ require('which-key').add({
     { "<leader>l", group = "[l]sp" },
     { "<leader>s", group = "[S]earch" },
     { "<leader>t", group = "nvim-[t]ree" },
+    { "<leader>g", group = "[G]pAgent" },
 })
-
--- [[ LSP config ]]
-require('mason').setup()
-require('mason-lspconfig').setup()
-
-local servers = {
-  html = {},
-  pylsp = {
-    pylsp = {
-        plugins = {
-          pycodestyle = {
-            ignore = {'W391', 'E'},
-            maxLineLength = 100
-          }
-        }
-    }
-  },
-  jdtls = {}, -- Java language server
-}
-
--- Only show errors in the editor
-require('filter-diagnostics').set_level(vim.diagnostic.severity.ERROR)
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_lsp_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end,
-}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -344,5 +345,4 @@ cmp.setup {
     end
   end
 }
-
 
