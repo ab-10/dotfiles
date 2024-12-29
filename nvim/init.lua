@@ -35,7 +35,6 @@ require("lazy").setup("plugins")
 
 vim.cmd("colorscheme tokyonight")
 
--- [[ vanilla config ]]
 vim.o.hlsearch = false
 
 -- Save undo history
@@ -45,35 +44,41 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- [[ vanila keybindings ]]
+-- [[ keybindings ]]
+require('which-key').add({
+    { "<leader>b", group = "[b]uffer" },
+    { "<leader>f", group = "[F]ile" },
+    { "<leader>l", group = "[l]sp" }, -- bindings configured in lsp.lua
+    { "<leader>s", group = "[S]earch" },
+    { "<leader>t", group = "nvim-[t]ree" },
+    { "<leader>g", group = "[G]pAgent" },
+})
+
+-- [[ buffer ]]
+vim.keymap.set('n', '<leader>bk', '<cmd>bdelete<cr>', { desc = '[B]uffer [K]ill' })
+vim.keymap.set('n', '<leader>b[', '<cmd>bprevious<cr>', { desc = '[B]uffer [P]revious' })
+vim.keymap.set('n', '<leader>b]', '<cmd>bnext<cr>', { desc = '[B]uffer [N]ext' })
+
+-- [[ file ]]
 vim.keymap.set('n', '<leader>fw', '<cmd>write<cr>', { desc = '[F]ile [W]rite to current file' })
 vim.keymap.set('n', '<leader>fx', '<cmd>write<cr><cmd>quit<cr>', { desc = '[F]ile [x] Write and quit' })
 vim.keymap.set('n', '<leader>fq', '<cmd>quit<cr>', { desc = '[F]ile [Q]uit' })
 vim.keymap.set('n', '<leader>f!q', '<cmd>quit!<cr>', { desc = '[F]ile [Q]uit' })
 
 
-vim.keymap.set('n', '<leader>bk', '<cmd>bdelete<cr>', { desc = '[B]uffer [K]ill' })
-vim.keymap.set('n', '<leader>b[', '<cmd>bprevious<cr>', { desc = '[B]uffer [P]revious' })
-vim.keymap.set('n', '<leader>b]', '<cmd>bnext<cr>', { desc = '[B]uffer [N]ext' })
 
 vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })
 
 
+-- [[ GpAgent ]]
 vim.keymap.set('n', '<leader>gn', '<cmd>GpChatNew<cr>', { desc = '[G]P Chat [N]ew' })
+vim.keymap.set('n', '<leader>gc', '<cmd>GpCodeQuery<cr>', { desc = '[G]P [C]ode query' })
+vim.keymap.set('n', '<leader>gc', '<cmd>GpStop<cr>', { desc = '[G]P [S]top' })
+vim.keymap.set('n', '<leader>g<return>', '<cmd>GpChatRespond<cr>', { desc = '[G]P Chat Respond' })
 
--- [[ telescope config ]]
+-- [[ search (telescope) ]]
 vim.keymap.set('n', '<leader>s/', require('telescope.builtin').live_grep, { desc = '[S]earch [/] in Open Files' })
 vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc = '[S]earch [G]it Files' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-
-
-require('which-key').add({
-    { "<leader>b", group = "[b]uffer" },
-    { "<leader>f", group = "[F]ile" },
-    { "<leader>l", group = "[l]sp" },
-    { "<leader>s", group = "[S]earch" },
-    { "<leader>t", group = "nvim-[t]ree" },
-    { "<leader>g", group = "[G]pAgent" },
-})
 
