@@ -1,9 +1,5 @@
 local on_lsp_attach = function (_, bufnr)
   local lsp_map = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
-    end
-
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
@@ -12,6 +8,9 @@ local on_lsp_attach = function (_, bufnr)
   lsp_map('<leader>lr', vim.lsp.buf.rename, '[L]SP [R]ename')
   lsp_map('<leader>la', vim.lsp.buf.code_action, '[L]SP Code [A]ction')
 end
+
+vim.keymap.set('n', '<leader>ls', '<cmd>LspStart<cr>', { desc = '[L]SP [S]tart' })
+
 
 return {{
     -- Install LSP and friends
@@ -62,7 +61,8 @@ return {{
                     autostart=true,
                     })
                 end
-            }
+            },
+            autostart=true,
         })
     end
     }

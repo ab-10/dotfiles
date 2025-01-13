@@ -52,6 +52,7 @@ require('which-key').add({
     { "<leader>s", group = "[S]earch" },
     { "<leader>t", group = "nvim-[t]ree" },
     { "<leader>g", group = "[G]pAgent" },
+    { "<leader>d", group = "[D]iff" },
 })
 
 -- [[ buffer ]]
@@ -61,7 +62,7 @@ vim.keymap.set('n', '<leader>b]', '<cmd>bnext<cr>', { desc = '[B]uffer [N]ext' }
 
 -- [[ file ]]
 vim.keymap.set('n', '<leader>fw', '<cmd>write<cr>', { desc = '[F]ile [W]rite to current file' })
-vim.keymap.set('n', '<leader>fx', '<cmd>write<cr><cmd>quit<cr>', { desc = '[F]ile [x] Write and quit' })
+vim.keymap.set('n', '<leader>fx', '<cmd>wqa<cr>', { desc = '[F]ile [x] Write and quit' })
 vim.keymap.set('n', '<leader>fq', '<cmd>quit<cr>', { desc = '[F]ile [Q]uit' })
 vim.keymap.set('n', '<leader>f!q', '<cmd>quit!<cr>', { desc = '[F]ile [Q]uit' })
 
@@ -73,8 +74,9 @@ vim.keymap.set('n', '<tab>', 'za', { desc = 'Toggle fold' })
 -- [[ GpAgent ]]
 vim.keymap.set('n', '<leader>gn', '<cmd>GpChatNew<cr>', { desc = '[G]P Chat [N]ew' })
 vim.keymap.set('n', '<leader>gc', '<cmd>GpCodeQuery<cr>', { desc = '[G]P [C]ode query' })
-vim.keymap.set('n', '<leader>gc', '<cmd>GpStop<cr>', { desc = '[G]P [S]top' })
+vim.keymap.set('n', '<leader>gs', '<cmd>GpStop<cr>', { desc = '[G]P [S]top' })
 vim.keymap.set('n', '<leader>g<return>', '<cmd>GpChatRespond<cr>', { desc = '[G]P Chat Respond' })
+vim.keymap.set('n', '<leader>gc<return>', '<cmd>GpCodeQuery<cr>', { desc = '[G]P [C]ode Query' })
 
 -- [[ search (telescope) ]]
 vim.keymap.set('n', '<leader>s/', require('telescope.builtin').live_grep, { desc = '[S]earch [/] in Open Files' })
@@ -82,3 +84,8 @@ vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc =
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').git_files, { desc = '[S]earch [G]it Files' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 
+-- [[ git ]]
+vim.keymap.set('n', '<leader>do', '<cmd>diffget LOCAL<cr>', { desc = '[D]iff get [O]urs' })
+vim.keymap.set('n', '<leader>dt', '<cmd>diffget REMOTE<cr>', { desc = '[D]iff get [T]heirs' })
+vim.keymap.set('n', '<leader>dn', '/^<<<<<<<\\|^=======\\|^>>>>>>><cr>', { desc = '[D]iff [n]ext conflict' })
+vim.keymap.set('n', '<leader>dN', '?^<<<<<<<\\|^=======\\|^>>>>>>><cr>', { desc = '[D]iff ([N]) previous coflict' })
