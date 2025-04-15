@@ -30,12 +30,10 @@ plugins=(
 export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOQUIT=false
 
-# Tmux aliases 
-alias tsync='tmux set synchronize-panes'
-alias tsplit='tmux split-window -h -c "#{pane_current_path}" && tmux split-window -v -c "#{pane_current_path}"'
-
 # Git aliases
 alias grp='git grep'
+alias gpm='git fetch origin main:main && git merge main'
+alias greplace='f() { git grep -l "$1" | xargs sed -i '\'''\'' "s/$1/$2/g" }; f'
 
 
 export EDITOR='nvim'
@@ -66,8 +64,13 @@ export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export PATH=$HOME/.pyenv/shims/:$PATH
-export PATH=$HOME/.pyenv/versions/3.10.4/bin/:$PATH
+# export PATH=$HOME/.pyenv/shims/:$PATH
+# export PATH=$HOME/.pyenv/versions/3.10.4/bin/:$PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
 if command -v rbenv >/dev/null; then
   # make sure to use rbenv's ruby and gem
@@ -77,3 +80,22 @@ fi
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# ngrok shell completion
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
+export PATH="/Users/seneca/.pixi/bin:$PATH"
+eval "$(pixi completion --shell zsh)"
+
+
+# Ensures node is loaded
+export NVM_DIR=~/.nvm
+. ~/.nvm/nvm.sh
+
+
+# RecurseML aliases
+alias rebg="/Users/seneca/Coding/squash/env/bin/python /Users/seneca/Coding/squash/cli/rebg.py"
+alias tl='tail -f "$(ls -t logs/*.log | head -n1)"'
+
